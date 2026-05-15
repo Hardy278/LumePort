@@ -87,14 +87,11 @@ void ULumeHeroComponent::InitializeAbilitySystem(ULumeAbilitySystemComponent* In
 
 	if (AbilitySystemComponent == InASC)
 	{
-		// The ability system component hasn't changed.
-		return;
+		return; // The ability system component hasn't changed.
 	}
-
 	if (AbilitySystemComponent)
 	{
-		// Clean up the old ability system component.
-		UninitializeAbilitySystem();
+		UninitializeAbilitySystem(); // Clean up the old ability system component.
 	}
 
 	// 2. set which actor the ASC belong to. (Avatar / Owner)
@@ -255,7 +252,7 @@ void ULumeHeroComponent::HandleChangeInitState(UGameFrameworkComponentManager* M
 			// The ability system component and attribute sets live on the player state.
 			InitializeAbilitySystem(LumePS->GetLumeAbilitySystemComponent(), LumePS);
 
-			PawnExtComp->OnControllerChangeDelegate.AddDynamic(this, &ThisClass::OnControllerChanged);
+			PawnExtComp->OnControllerChanged.AddUObject(this, &ULumeHeroComponent::OnControllerChanged);
 		}
 
 		if (ALumePlayerController* LumePC = GetController<ALumePlayerController>())
@@ -283,7 +280,7 @@ void ULumeHeroComponent::OnActorInitStateChanged(const FActorInitStateChangedPar
 	{
 		if (Params.FeatureState == LumeGameplayTags::InitState_DataInitialized)
 		{
-			// If the extension component says all all other components are initialized, try to progress to next state
+			// If the extension component says all other components are initialized, try to progress to next state
 			CheckDefaultInitialization();
 		}
 	}
@@ -450,8 +447,6 @@ void ULumeHeroComponent::InitializePlayerInput(UInputComponent* PlayerInputCompo
 					LumeIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, BindHandles);
 
 					LumeIC->BindNativeAction(InputConfig, LumeGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move, false);
-					LumeIC->BindNativeAction(InputConfig, LumeGameplayTags::InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &ThisClass::Input_LookMouse, false);
-					LumeIC->BindNativeAction(InputConfig, LumeGameplayTags::InputTag_Look_Stick, ETriggerEvent::Triggered, this, &ThisClass::Input_LookStick, false);
 				}
 			}
 		}
@@ -511,39 +506,5 @@ void ULumeHeroComponent::Input_Move(const FInputActionValue& InputActionValue)
 			const FVector MovementDirection = MovementRotation.RotateVector(FVector::ForwardVector);
 			Pawn->AddMovementInput(MovementDirection, Value.Y);
 		}
-	}
-}
-
-void ULumeHeroComponent::Input_LookMouse(const FInputActionValue& InputActionValue)
-{
-	APawn* Pawn = GetPawn<APawn>();
-	if (!Pawn)
-	{
-		return;
-	}
-
-	const float Value = InputActionValue.Get<float>();
-
-	if (Value!= 0.0f)
-	{
-		Pawn->AddControllerYawInput(Value);
-	}
-}
-
-void ULumeHeroComponent::Input_LookStick(const FInputActionValue& InputActionValue)
-{
-	APawn* Pawn = GetPawn<APawn>();
-	if (!Pawn)
-	{
-		return;
-	}
-
-	const float Value = InputActionValue.Get<float>();
-
-	const UWorld* World = GetWorld();
-	check(World);
-	if (Value != 0.0f)
-	{
-		Pawn->AddControllerYawInput(Value * LumeHero::LookYawRate * World->GetDeltaSeconds());
 	}
 }

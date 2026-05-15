@@ -38,6 +38,7 @@ public class LumeGame: ModuleRules
 
         PrivateDependencyModuleNames.AddRange(
             new string[] {
+                "AnimGraphRuntime",
                 "CommonUI",
                 "CommonInput",
                 "CommonGame",

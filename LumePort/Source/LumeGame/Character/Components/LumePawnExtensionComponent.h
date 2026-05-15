@@ -14,8 +14,6 @@ class UGameFrameworkComponentManager;
 class ULumeAbilitySystemComponent;
 class ULumePawnData;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnControllerChangeDelegate);
-
 /**
  * 
  */
@@ -30,10 +28,9 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	//~ Begin IGameFrameworkInitStateInterface interface
 	/** The name of this overall feature, this one depends on the other named component features */
 	static UE_API const FName NAME_ActorFeatureName;
-
-	//~ Begin IGameFrameworkInitStateInterface interface
 	virtual FName GetFeatureName() const override { return NAME_ActorFeatureName; }
 	UE_API virtual bool CanChangeInitState(UGameFrameworkComponentManager* Manager, FGameplayTag CurrentState, FGameplayTag DesiredState) const override;
 	UE_API virtual void HandleChangeInitState(UGameFrameworkComponentManager* Manager, FGameplayTag CurrentState, FGameplayTag DesiredState) override;
@@ -42,7 +39,7 @@ public:
 	//~ End IGameFrameworkInitStateInterface interface
 
 	/** Returns the pawn extension component if one exists on the specified actor. */
-	UFUNCTION(BlueprintPure, Category = "Lyra|Pawn")
+	UFUNCTION(BlueprintPure, Category = "Lume|Pawn")
 	static ULumePawnExtensionComponent* FindPawnExtensionComponent(const AActor* Actor) { return (Actor ? Actor->FindComponentByClass<ULumePawnExtensionComponent>() : nullptr); }
 
 	/** Gets the pawn data, which is used to specify pawn properties in data */
@@ -61,7 +58,7 @@ public:
 	/** Should be called by the owning pawn when the input component is setup. */
 	UE_API void SetupPlayerInputComponent();
 
-	FOnControllerChangeDelegate OnControllerChangeDelegate;
+	FSimpleMulticastDelegate OnControllerChanged;
 
 protected:
 

@@ -15,7 +15,14 @@ UCLASS(MinimalAPI, Config = Game, Meta = (ShortTooltip = "The base player contro
 class ALumePlayerController : public ACommonPlayerController
 {
 	GENERATED_BODY()
-	
+
+public:
+
+	UE_API ALumePlayerController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+
+	//~AActor interface
+	UE_API virtual void BeginPlay() override;
+	//~End of AActor interface
 };
 
 #undef UE_API

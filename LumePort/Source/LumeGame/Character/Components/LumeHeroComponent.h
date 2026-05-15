@@ -87,10 +87,7 @@ protected:
 	UE_API void Input_AbilityInputTagReleased(FGameplayTag InputTag);
 
 	UE_API void Input_Move(const FInputActionValue& InputActionValue);
-	UE_API void Input_LookMouse(const FInputActionValue& InputActionValue);
-	UE_API void Input_LookStick(const FInputActionValue& InputActionValue);
-
-protected:
+	
 
 	UPROPERTY(EditAnywhere)
 	TArray<FInputMappingContextAndPriority> DefaultInputMappings;

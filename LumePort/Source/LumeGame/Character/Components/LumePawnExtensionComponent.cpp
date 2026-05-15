@@ -143,23 +143,28 @@ void ULumePawnExtensionComponent::SetPawnData(const ULumePawnData* InPawnData)
 
 void ULumePawnExtensionComponent::HandleControllerChanged()
 {
-	OnControllerChangeDelegate.Broadcast();
+	AController* NewController = GetController<AController>();
+	UE_LOG(LogTemp, Log, TEXT("ControllerChanged to %s"), *GetNameSafe(NewController));
+	OnControllerChanged.Broadcast();
 
 	CheckDefaultInitialization();
 }
 
 void ULumePawnExtensionComponent::HandlePlayerStateReplicated()
 {
+	UE_LOG(LogTemp, Log, TEXT("PlayerState Replicated"));
 	CheckDefaultInitialization();
 }
 
 void ULumePawnExtensionComponent::SetupPlayerInputComponent()
 {
+	UE_LOG(LogTemp, Log, TEXT("SetupPlayerInputComponent called"));
 	CheckDefaultInitialization();
 }
 
 void ULumePawnExtensionComponent::OnRep_PawnData()
 {
+	UE_LOG(LogTemp, Log, TEXT("PawnData Replicated"));
 	CheckDefaultInitialization();
 }
 

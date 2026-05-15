@@ -10,6 +10,4 @@ namespace LumeGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InitState_GameplayReady, "Game.InitState.GameplayReady", "4: The actor/component is fully ready for active gameplay");
 
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Move, "Game.InputTag.Move", "Move input.");
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Look_Mouse, "Game.InputTag.Look.Mouse", "Look (mouse) input.");
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(InputTag_Look_Stick, "Game.InputTag.Look.Stick", "Look (stick) input.");
 }
