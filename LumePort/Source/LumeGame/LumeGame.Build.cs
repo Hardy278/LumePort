@@ -33,6 +33,7 @@ public class LumeGame: ModuleRules
                 "ModularGameplay",
                 "ModularGameplayActors",
                 "Niagara",
+                "PhysicsCore",
             }
         );
 
@@ -45,8 +46,10 @@ public class LumeGame: ModuleRules
                 "CommonUser",
                 "EnhancedInput",
                 "EngineSettings",
+                "GameplayMessageRuntime",
                 "InputCore",
                 "NetCore",
+                "IrisCore",
                 "Slate",
                 "SlateCore",
                 "UMG",
